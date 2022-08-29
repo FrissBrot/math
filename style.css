@@ -1,0 +1,7 @@
+html {
+    --backgroundBlack: #1e1e1e;
+    --backgroundYellow: #f7e94b;
+    --fontYellow: #f4c700;
+
+    background-color: var(--backgroundBlack);
+}
