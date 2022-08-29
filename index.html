@@ -12,9 +12,53 @@
 </head>
 
 <body>
-    <div>
+    <div class="StartPage">
+        <div class="MainContent">
+            <div class="VarEingabe">
+                <select id="CalcMode">
+                    <option>Binär</option>
+                    <option>Hexadezimal</option>
+                </select>
 
+                <input id="Wert1" type="number">
+            </div>
+            <div class="VarResultat">
+                <p id="ResultatDisplay"> Resultat</p>
+            </div>
+        </div>
     </div>
 </body>
+
+<script>
+
+    //Eventlistener setzen
+    document.getElementById("Wert1").addEventListener("input", function () {
+
+        WertLesen();
+    }, false);
+
+    document.querySelector("#CalcMode").onchange = function () {
+        let CalcMode = document.querySelector("#choice").value;
+    }
+
+    function WertLesen() {
+        var Wert1 = document.querySelector("#Wert1").value;
+        var CalcCache = 0;
+        let Resultat = "";
+
+        while (Wert1 > 0) {
+
+            CalcCache = Wert1 % 2;
+            Wert1 = Math.floor((Wert1 / 2));
+
+            Resultat = String(CalcCache) + Resultat;
+
+        }
+
+        console.log(Resultat)
+        document.getElementById("ResultatDisplay").innerHTML = Resultat;
+    }
+
+</script>
 
 </html>
