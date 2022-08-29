@@ -1,6 +1,7 @@
 html {
     --backgroundBlack: #1e1e1e;
     --backgroundBlackSecond: #252526;
+    --colortwo: #333333;
     --backgroundYellow: #f7e94b;
     --fontYellow: #f4c700;
 
@@ -24,6 +25,9 @@ html {
     background-color: var(--backgroundBlackSecond);
     width: 30vw;
     height: 60vh;
+    border-radius: 20px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
 
 
     display: flex;
@@ -36,4 +40,64 @@ html {
     -webkit-box-shadow: 0px 0px 68px 7px rgba(244, 199, 0, 0.9);
     -moz-box-shadow: 0px 0px 68px 7px rgba(244, 199, 0, 0.9);
     box-shadow: 0px 0px 68px 7px rgba(244, 199, 0, 0.9);
+}
+
+.MainContent select {
+    color: white;
+    border-style: none;
+    text-align: center;
+    font-style: arial;
+    font-weight: bold;
+    font-size: 120%;
+    height: 3.5vh;
+    background-color: var(--colortwo);
+}
+
+.MainContent select:focus {
+    border-style: none;
+    box-shadow: none;
+}
+
+.MainContent input {
+    color: white;
+    border-style: none;
+    text-align: center;
+    font-style: arial;
+    font-size: 120%;
+    height: 3.5vh;
+    background-color: var(--colortwo);
+}
+
+.MainContent input:focus {
+    border-style: none;
+    box-shadow: none;
+}
+
+.CalcDiv {
+    margin-left: 5vw;
+}
+
+.VarEingabe {
+    width: 30vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+
+.VarResultat {
+    width: 30vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+
+    color: white;
+    font-style: arial;
+    font-size: 120%;
+    height: 3.5vh;
 }

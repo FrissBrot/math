@@ -14,16 +14,20 @@
 <body>
     <div class="StartPage">
         <div class="MainContent">
-            <div class="VarEingabe">
-                <select id="CalcMode">
-                    <option>Binär</option>
-                    <option>Hexadezimal</option>
-                </select>
+            <p>Rechnen</p>
+            <div id="CalcDiv">
+                <div class="VarEingabe">
+                    <select id="CalcMode">
+                        <option>Binär</option>
+                        <option>Hexadezimal</option>
+                    </select>
 
-                <input id="Wert1" type="number">
-            </div>
-            <div class="VarResultat">
-                <p id="ResultatDisplay"> Resultat</p>
+                    <input id="Wert1" type="number">
+                </div>
+                <div class="VarResultat">
+                    <p style="font-weight: bold;">Resultat:</p>
+                    <p id="ResultatDisplay"></p>
+                </div>
             </div>
         </div>
     </div>
@@ -34,29 +38,82 @@
     //Eventlistener setzen
     document.getElementById("Wert1").addEventListener("input", function () {
 
-        WertLesen();
+        Rechnen();
     }, false);
 
     document.querySelector("#CalcMode").onchange = function () {
-        let CalcMode = document.querySelector("#choice").value;
+        ModeAuslesen()
     }
 
-    function WertLesen() {
+    function ModeAuslesen() {
+        let CalcMode = document.querySelector("#CalcMode").value;
+        console.log(CalcMode)
+        return CalcMode;
+    }
+
+    function Rechnen() {
         var Wert1 = document.querySelector("#Wert1").value;
         var CalcCache = 0;
-        let Resultat = "";
+        let Resultat = " ";
+        let CalcCacheStr = " "
 
-        while (Wert1 > 0) {
+        if (ModeAuslesen() == "Binär") {
+            while (Wert1 > 0) {
 
-            CalcCache = Wert1 % 2;
-            Wert1 = Math.floor((Wert1 / 2));
+                CalcCache = Wert1 % 2;
+                Wert1 = Math.floor((Wert1 / 2));
 
-            Resultat = String(CalcCache) + Resultat;
+                Resultat = String(CalcCache) + Resultat;
 
+            }
+
+            console.log(Resultat)
+            document.getElementById("ResultatDisplay").innerHTML = Resultat;
         }
 
-        console.log(Resultat)
-        document.getElementById("ResultatDisplay").innerHTML = Resultat;
+        if (ModeAuslesen() == "Hexadezimal") {
+            while (Wert1 > 0) {
+
+                CalcCache = Wert1 % 16;
+                Wert1 = Math.floor((Wert1 / 16));
+
+                CalcCacheStr = String(CalcCache)
+                console.log(CalcCacheStr)
+
+                switch (CalcCacheStr) {
+                    case "10":
+                        CalcCacheStr = "A";
+                        break;
+
+                    case "11":
+                        CalcCacheStr = "B";
+                        break;
+
+                    case "12":
+                        CalcCacheStr = "C";
+                        break;
+
+                    case "13":
+                        CalcCacheStr = "D";
+                        break;
+
+                    case "14":
+                        CalcCacheStr = "E";
+                        break;
+
+                    case "15":
+                        CalcCacheStr = "F";
+                        break;
+
+                }
+                console.log(CalcCacheStr)
+                Resultat = CalcCacheStr + Resultat;
+
+            }
+
+            console.log(Resultat)
+            document.getElementById("ResultatDisplay").innerHTML = Resultat;
+        }
     }
 
 </script>
