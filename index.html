@@ -13,23 +13,39 @@
 
 <body>
     <div class="StartPage">
-        <div class="MainContent">
-            <p>Rechnen</p>
-            <div id="CalcDiv">
-                <div class="VarEingabe">
-                    <select id="CalcMode">
-                        <option>Binär</option>
-                        <option>Hexadezimal</option>
-                    </select>
-
-                    <input id="Wert1" type="number">
-                </div>
-                <div class="VarResultat">
-                    <p style="font-weight: bold;">Resultat:</p>
-                    <p id="ResultatDisplay"></p>
-                </div>
+        <div class="HeadLine">
+            <div class="WebstackSchrift">
+                <p>Webstack<span>.</span>calc</p>
             </div>
         </div>
+        <div class="MainPage">
+            <div class="MainContent">
+                <div class="CalcTitle">
+                    <p>Zahlensysteme umrechnen</p>
+                </div>
+                <div id="CalcDiv">
+                    <div class="VarEingabe">
+                        <select id="CalcMode">
+                            <option>Dezimal</option>
+                            <option>Hexadezimal</option>
+                            <option>Binär</option>
+                        </select>
+
+                        <input id="Wert1" type="number">
+                    </div>
+                    <div class="VarResultat">
+                        <select id="AnswerMode">
+                            <option>Binär</option>
+                            <option>Hexadezimal</option>
+                            <option>Dezimal</option>
+                        </select>
+                        <input id="ResultatDisplay" type="text" readonly="readonly">
+                    </div>
+                </div>
+                <div class="CalcFooter"> <a href="https:\\tweber.ch">Powered by Webstack.</a></div>
+            </div>
+        </div>
+
     </div>
 </body>
 
@@ -43,6 +59,17 @@
 
     document.querySelector("#CalcMode").onchange = function () {
         ModeAuslesen()
+        Rechnen()
+    }
+
+    document.querySelector("#AnswerMode").onchange = function () {
+        AnswerModeAuslesen()
+        Rechnen()
+    }
+
+    function AnswerModeAuslesen() {
+        let AnswerMode = document.querySelector("#AnswerMode").value;
+        return AnswerMode;
     }
 
     function ModeAuslesen() {
@@ -56,7 +83,7 @@
         let Resultat = " ";
         let CalcCacheStr = " "
 
-        if (ModeAuslesen() == "Binär") {
+        if (AnswerModeAuslesen() == "Binär") {
             while (Wert1 > 0) {
 
                 CalcCache = Wert1 % 2;
@@ -65,11 +92,10 @@
                 Resultat = String(CalcCache) + Resultat;
 
             }
-
-            document.getElementById("ResultatDisplay").innerHTML = Resultat;
+            document.querySelector('#ResultatDisplay').value = Resultat;
         }
 
-        if (ModeAuslesen() == "Hexadezimal") {
+        if (AnswerModeAuslesen() == "Hexadezimal") {
             while (Wert1 > 0) {
 
                 CalcCache = Wert1 % 16;
@@ -107,7 +133,7 @@
 
             }
 
-            document.getElementById("ResultatDisplay").innerHTML = Resultat;
+            document.querySelector('#ResultatDisplay').value = Resultat;
         }
     }
 
