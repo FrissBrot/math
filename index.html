@@ -8,18 +8,18 @@
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
     <link rel="icon" href="favicon.gif" type="image/gif">
 
-    <title>Webstack • Math</title>
+    <title>Webstack • Calc</title>
 </head>
 
 <body>
     <div class="StartPage">
         <div class="HeadLine">
             <div class="WebstackSchrift">
-                <p>Webstack<span>.</span>calc</p>
+                <p>webstack<span>.</span>calc</p>
             </div>
         </div>
         <div class="MainPage">
-            <div class="MainContent">
+            <div class="MainContent" id="MainContent">
                 <div class="CalcTitle">
                     <p>Zahlensysteme umrechnen</p>
                 </div>
@@ -42,7 +42,7 @@
                         <input id="ResultatDisplay" type="text" readonly="readonly">
                     </div>
                 </div>
-                <div class="CalcFooter"> <a href="https:\\tweber.ch">Powered by Webstack.</a></div>
+                <div class="CalcFooter"> <a href="https:\\tweber.ch">Powered by Webstack</a></div>
             </div>
         </div>
 
@@ -67,6 +67,16 @@
         Rechnen()
     }
 
+    //Grösse des Contentdivs lesen
+    function grosse() {
+        var ContentDivHeight = document.getElementById('MainContent').offsetHeight;
+        var ContentDivWidth = document.getElementById('MainContent').offsetWidth;
+
+        document.documentElement.style.setProperty("--ContentDivHeight", ContentDivHeight);
+        console.log(ContentDivHeight);
+        document.style.setProperty("--ContentDivWidth", ContentDivWidth);
+    }
+
     function AnswerModeAuslesen() {
         let AnswerMode = document.querySelector("#AnswerMode").value;
         return AnswerMode;
@@ -84,59 +94,159 @@
         let CalcCacheStr = " "
 
         if (AnswerModeAuslesen() == "Binär") {
-            while (Wert1 > 0) {
-
-                CalcCache = Wert1 % 2;
-                Wert1 = Math.floor((Wert1 / 2));
-
-                Resultat = String(CalcCache) + Resultat;
-
-            }
-            document.querySelector('#ResultatDisplay').value = Resultat;
+            document.querySelector('#ResultatDisplay').value = DezToBin(Wert1);
         }
 
         if (AnswerModeAuslesen() == "Hexadezimal") {
-            while (Wert1 > 0) {
 
-                CalcCache = Wert1 % 16;
-                Wert1 = Math.floor((Wert1 / 16));
-
-                CalcCacheStr = String(CalcCache)
-
-                switch (CalcCacheStr) {
-                    case "10":
-                        CalcCacheStr = "A";
-                        break;
-
-                    case "11":
-                        CalcCacheStr = "B";
-                        break;
-
-                    case "12":
-                        CalcCacheStr = "C";
-                        break;
-
-                    case "13":
-                        CalcCacheStr = "D";
-                        break;
-
-                    case "14":
-                        CalcCacheStr = "E";
-                        break;
-
-                    case "15":
-                        CalcCacheStr = "F";
-                        break;
-
-                }
-                Resultat = CalcCacheStr + Resultat;
-
-            }
-
-            document.querySelector('#ResultatDisplay').value = Resultat;
+            document.querySelector('#ResultatDisplay').value = DezToHex(Wert1);
         }
     }
 
+    function DezToBin(Wert1) {
+
+        var CalcCache = 0;
+        let Resultat = " ";
+
+
+        while (Wert1 > 0) {
+
+            CalcCache = Wert1 % 2;
+            Wert1 = Math.floor((Wert1 / 2));
+
+            Resultat = String(CalcCache) + Resultat;
+
+        }
+        return Resultat;
+    }
+
+    function DezToHex(Wert1) {
+
+        var CalcCache = 0;
+        let Resultat = " ";
+        let CalcCacheStr = " "
+
+        while (Wert1 > 0) {
+
+            CalcCache = Wert1 % 16;
+            Wert1 = Math.floor((Wert1 / 16));
+
+            CalcCacheStr = String(CalcCache)
+
+            switch (CalcCacheStr) {
+                case "10":
+                    CalcCacheStr = "A";
+                    break;
+
+                case "11":
+                    CalcCacheStr = "B";
+                    break;
+
+                case "12":
+                    CalcCacheStr = "C";
+                    break;
+
+                case "13":
+                    CalcCacheStr = "D";
+                    break;
+
+                case "14":
+                    CalcCacheStr = "E";
+                    break;
+
+                case "15":
+                    CalcCacheStr = "F";
+                    break;
+
+            }
+            Resultat = CalcCacheStr + Resultat;
+
+        }
+
+        return Resultat;
+    }
+
+    function HexToDez(Wert1) {
+
+        var CalcCache = 0;
+        var Resultat = 0;
+        var Potenz = 0;
+        var StrPositon = (Wert1.length - 1);
+        var CalcCacheStr = 0;
+
+        while (StrPositon >= 0) {
+
+            switch (Wert1.charAt(StrPositon)) {
+
+                case "A":
+                    CalcCacheStr = 10;
+                    break;
+
+                case "B":
+                    CalcCacheStr = 11;
+                    break;
+
+                case "C":
+                    CalcCacheStr = 12;
+                    break;
+
+                case "D":
+                    CalcCacheStr = 13;
+                    break;
+
+                case "E":
+                    CalcCacheStr = 14;
+                    break;
+
+                case "F":
+                    CalcCacheStr = 15;
+                    break;
+
+                default:
+                    CalcCacheStr = parseInt(Wert1.charAt(StrPositon));
+            }
+
+            console.log(CalcCacheStr);
+
+            Resultat = Resultat + (CalcCacheStr * (Math.pow(16, Potenz)));
+
+            StrPositon--;
+            Potenz++;
+
+        }
+        console.log(Resultat);
+    }
+
+    function HexToDez(Wert1) {
+        var CalcCache = 0;
+        var Resultat = 0;
+        var Potenz = 0;
+        var StrPositon = (Wert1.length - 1);
+
+        while (StrPositon >= 0) {
+
+            CalcCache = parseInt(Wert1.charAt(StrPositon));
+
+            Resultat = Resultat + (CalcCache * (Math.pow(2, Potenz)));
+
+            StrPositon--;
+            Potenz++;
+
+        }
+
+        console.log(Resultat)
+    }
+
 </script>
+
+<style>
+    :root {
+        --backgroundBlack: #1e1e1e;
+        --backgroundBlackSecond: #252526;
+        --colortwo: #333333;
+        --backgroundYellow: #f7e94b;
+        --fontYellow: #f4c700;
+    }
+</style>
 
 </html>
